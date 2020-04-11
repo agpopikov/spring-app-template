@@ -1,0 +1,7 @@
+.idea
+.gradle
+out
+build
+web/ui/.cache/
+web/ui/dist/
+web/ui/node_modules/

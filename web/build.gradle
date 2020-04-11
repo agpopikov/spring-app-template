@@ -1,0 +1,18 @@
+plugins {
+    id("base")
+    id("com.palantir.docker") version "0.22.1"
+}
+
+task cleanUI(type: Delete) {
+    delete("${projectDir.path}/ui/dist", "${projectDir.path}/ui/node_modules", "${projectDir.path}/ui/.cache")
+}
+
+clean.dependsOn("cleanUI")
+
+docker {
+    name = "$dockerImagesPrefix/web"
+    setDockerfile(file("Dockerfile"))
+    copySpec.from(".").exclude("node_modules", ".cache", "dist").into("/")
+    noCache(true)
+    pull(true)
+}
